@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.elouanproject.model.DealsItem
 import com.squareup.picasso.Picasso
 
-class RecyclerItemsAdapter(private val itemList: List<DealsItem>) : RecyclerView.Adapter<RecyclerItemsAdapter.RecyclerItemsViewHolder>() {
+class RecyclerItemsAdapter(private val itemList: List<DealsItem>, var listener:((DealsItem)->Unit)? = null) : RecyclerView.Adapter<RecyclerItemsAdapter.RecyclerItemsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.deal_item,

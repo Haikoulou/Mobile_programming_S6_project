@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +29,8 @@ import java.lang.StringBuilder
  */
 class SecondFragment : Fragment() {
     private val listItems = ArrayList<DealsItem>()
+
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -37,7 +42,16 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getDealsServer("Lara", 0, 3)
+        var inputGameTitle: String? = arguments?.getString("inputGameTitle")
+        if (inputGameTitle != null) {
+            getDealsServer(inputGameTitle!!, 0, 50)
+        } else {
+            getDealsServer("", 0, 50)
+        }
+    }
+
+    private fun onClickItem(item: DealsItem){
+
     }
 
     private fun getDealsServer(title:String, lowerPrice:Int, upperPrice:Int){
@@ -65,15 +79,12 @@ class SecondFragment : Fragment() {
                 val myStringBuilder = StringBuilder()
                 for (myData in responseBody) {
                     listItems.add(myData)
-                    myStringBuilder.append(myData.title)
-                    myStringBuilder.append(" at only ")
-                    myStringBuilder.append(myData.salePrice)
-                    myStringBuilder.append("\n")
                 }
+                view?.findViewById<ProgressBar>(R.id.progress_circular)?.isVisible = false
                 view?.findViewById<RecyclerView>(R.id.recycler_view)?.adapter = RecyclerItemsAdapter(listItems)
-                view?.findViewById<RecyclerView>(R.id.recycler_view)?.layoutManager = LinearLayoutManager(activity)
+                view?.findViewById<RecyclerView>(R.id.recycler_view)?.layoutManager = LinearLayoutManager(activity!!)
                 view?.findViewById<RecyclerView>(R.id.recycler_view)?.setHasFixedSize(true)
-
+                if(listItems.size == 0) view?.findViewById<TextView>(R.id.error_text)?.visibility = View.VISIBLE
 
             }
         })
