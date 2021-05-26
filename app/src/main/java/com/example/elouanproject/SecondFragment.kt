@@ -25,6 +25,7 @@ import java.lang.StringBuilder
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class SecondFragment : Fragment() {
+    private val listItems = ArrayList<DealsItem>()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -35,10 +36,8 @@ class SecondFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         getDealsServer()
-        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
     }
 
     private fun getDealsServer(){
@@ -65,18 +64,17 @@ class SecondFragment : Fragment() {
 
                 val myStringBuilder = StringBuilder()
                 for (myData in responseBody) {
-                    list.add(myData)
+                    listItems.add(myData)
                     myStringBuilder.append(myData.title)
                     myStringBuilder.append(" at only ")
                     myStringBuilder.append(myData.salePrice)
                     myStringBuilder.append("\n")
                 }
-                //val textView = view?.findViewById<TextView>(R.id.text_api_result)
-                //textView?.setText(myStringBuilder)?.toString()
-
-                view?.findViewById<RecyclerView>(R.id.recycler_view)?.adapter = RecyclerItemsAdapter(list)
-                view?.findViewById<RecyclerView>(R.id.recycler_view)?.layoutManager = LinearLayoutManager(activity!!)
+                view?.findViewById<RecyclerView>(R.id.recycler_view)?.adapter = RecyclerItemsAdapter(listItems)
+                view?.findViewById<RecyclerView>(R.id.recycler_view)?.layoutManager = LinearLayoutManager(activity)
                 view?.findViewById<RecyclerView>(R.id.recycler_view)?.setHasFixedSize(true)
+
+
             }
         })
     }
