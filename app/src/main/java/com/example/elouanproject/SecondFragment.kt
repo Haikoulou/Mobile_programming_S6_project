@@ -37,17 +37,17 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getDealsServer()
+        getDealsServer("Lara", 0, 3)
     }
 
-    private fun getDealsServer(){
+    private fun getDealsServer(title:String, lowerPrice:Int, upperPrice:Int){
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://www.cheapshark.com")
             .build()
             .create(ApiConnDeals::class.java)
 
-        val retrofitData = retrofitBuilder.getDealsItem()
+        val retrofitData = retrofitBuilder.getDealsItem(title, lowerPrice, upperPrice)
 
         retrofitData.enqueue(object : Callback<List<DealsItem>?> {
             override fun onFailure(call: Call<List<DealsItem>?>, t: Throwable) {
