@@ -1,5 +1,6 @@
 package com.example.elouanproject
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -44,24 +45,25 @@ class SecondFragment : Fragment() {
 
         var inputGameTitle: String? = arguments?.getString("inputGameTitle")
         if (inputGameTitle != null) {
-            getDealsServer(inputGameTitle!!, 0, 50)
+            getDealsServer(inputGameTitle!!, view.context)
         } else {
-            getDealsServer("", 0, 50)
+            getDealsServer("", view.context)
         }
+
     }
 
     private fun onClickItem(item: DealsItem){
 
     }
 
-    private fun getDealsServer(title:String, lowerPrice:Int, upperPrice:Int){
+    private fun getDealsServer(title:String, context:Context){
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://www.cheapshark.com")
             .build()
             .create(ApiConnDeals::class.java)
 
-        val retrofitData = retrofitBuilder.getDealsItem(title, lowerPrice, upperPrice)
+        val retrofitData = retrofitBuilder.getDealsItem(title, 0, 100)
 
         retrofitData.enqueue(object : Callback<List<DealsItem>?> {
             override fun onFailure(call: Call<List<DealsItem>?>, t: Throwable) {
@@ -81,7 +83,7 @@ class SecondFragment : Fragment() {
                     listItems.add(myData)
                 }
                 view?.findViewById<ProgressBar>(R.id.progress_circular)?.isVisible = false
-                view?.findViewById<RecyclerView>(R.id.recycler_view)?.adapter = RecyclerItemsAdapter(listItems)
+                view?.findViewById<RecyclerView>(R.id.recycler_view)?.adapter = RecyclerItemsAdapter(listItems, context)
                 view?.findViewById<RecyclerView>(R.id.recycler_view)?.layoutManager = LinearLayoutManager(activity!!)
                 view?.findViewById<RecyclerView>(R.id.recycler_view)?.setHasFixedSize(true)
                 if(listItems.size == 0) view?.findViewById<TextView>(R.id.error_text)?.visibility = View.VISIBLE

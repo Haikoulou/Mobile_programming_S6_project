@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".FirstFragment">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="80dp"
+        android:layout_marginTop="64dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="50dp"
+        android:text="GameDeal"
+        app:layout_constraintBottom_toTopOf="@id/inputGameTitle"
+        tools:layout_editor_absoluteX="90dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_marginTop="64dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20dp"
+        android:text="Find the best deals on Steam!"
+        app:layout_constraintBottom_toTopOf="@id/inputGameTitle"
+        tools:layout_editor_absoluteX="90dp" />
+
     <EditText
         android:id="@+id/inputGameTitle"
         android:layout_width="match_parent"
@@ -18,26 +43,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></EditText>
 
-    <NumberPicker
-        android:id="@+id/NumberPickerMin"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_marginTop="64dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.345"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@id/inputGameTitle"></NumberPicker>
-
-    <NumberPicker
-        android:id="@+id/NumberPickerMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.654"
-        app:layout_constraintLeft_toLeftOf="@+id/NumberPickerMin"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@id/inputGameTitle"></NumberPicker>
+        android:text="Click on a title to see its Steam page!"
+        app:layout_constraintTop_toBottomOf="@id/inputGameTitle"
+        tools:layout_editor_absoluteX="90dp" />
 
     <Button
         android:id="@+id/button_first"

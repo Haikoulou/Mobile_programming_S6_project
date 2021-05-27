@@ -1,5 +1,7 @@
 package com.example.elouanproject
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -9,7 +11,7 @@ import android.view.MenuItem
 
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity(), Communicator {
+class MainActivity : AppCompatActivity() {
 
     public val bundle = Bundle()
 
@@ -19,8 +21,7 @@ class MainActivity : AppCompatActivity(), Communicator {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://elouantoy.fr")))
         }
 
     }
@@ -39,18 +40,5 @@ class MainActivity : AppCompatActivity(), Communicator {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun passDataComSearch(editTextInput: String) {
-
-        //bundle.putString("inputGameTitle", editTextInput)
-
-        //val transaction = this.supportFragmentManager.beginTransaction()
-        //val frag2 = SecondFragment()
-        //frag2.arguments = bundle
-        //transaction.replace(R.id.content_id, frag2)
-        //transaction.addToBackStack(null)
-        //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        //transaction.commit()
     }
 }
